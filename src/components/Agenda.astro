@@ -1,0 +1,147 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import { negocio } from '../data/negocio.js';
+---
+
+<section class="agenda" id="agenda">
+  <div class="container">
+    <div class="agenda__topo">
+      <p class="eyebrow">Agenda</p>
+      <span class="agenda__status">Vagas para o próximo mês</span>
+    </div>
+
+    <div class="agenda__grid">
+      <div class="agenda__chamada">
+        <h2 class="display">
+          Manda a ideia.<br />
+          <em>Eu desenho o resto.</em>
+        </h2>
+        <p>
+          Me conta o local do corpo, o tamanho aproximado e o que você tem em
+          mente. Respondo em até um dia útil com o caminho e o orçamento.
+        </p>
+        <div class="agenda__cta">
+          <WhatsAppButton label="Chamar no WhatsApp" />
+        </div>
+      </div>
+
+      <div class="agenda__dados">
+        <div class="dado">
+          <span class="dado__rotulo">Estúdio</span>
+          <p>{negocio.endereco}</p>
+          <p>{negocio.bairro}, {negocio.cidade}/{negocio.estado}</p>
+          <a href={negocio.mapsUrl} target="_blank" rel="noopener noreferrer">Como chegar ↗</a>
+        </div>
+
+        <div class="dado">
+          <span class="dado__rotulo">Horário</span>
+          {negocio.horarios.map((h) => (
+            <p class="dado__linha"><span>{h.dias}</span><span>{h.horas}</span></p>
+          ))}
+        </div>
+
+        <div class="dado">
+          <span class="dado__rotulo">Contato</span>
+          <a href={negocio.instagramUrl} target="_blank" rel="noopener noreferrer">
+            {negocio.instagram} ↗
+          </a>
+          <p>{negocio.telefoneDisplay}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .agenda {
+    padding-block: var(--section-y);
+    background: var(--tinta);
+    border-top: 1px solid var(--linha);
+  }
+
+  .agenda__topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1.4rem;
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .agenda__status {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--osso-fraco);
+  }
+
+  .agenda__grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .agenda__chamada h2 {
+    font-size: clamp(2.6rem, 6vw, 4.8rem);
+  }
+
+  .agenda__chamada h2 em {
+    color: var(--osso-suave);
+  }
+
+  .agenda__chamada > p {
+    margin-top: 1.6rem;
+    max-width: 40ch;
+    color: var(--osso-suave);
+  }
+
+  .agenda__cta {
+    margin-top: 2.2rem;
+  }
+
+  .agenda__dados {
+    display: grid;
+    gap: 1.8rem;
+    align-content: start;
+  }
+
+  .dado {
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--linha);
+    display: grid;
+    gap: 0.3rem;
+    font-size: 0.95rem;
+    color: var(--osso-suave);
+  }
+
+  .dado__rotulo {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--osso-fraco);
+    margin-bottom: 0.3rem;
+  }
+
+  .dado a {
+    color: var(--osso);
+    border-bottom: 1px solid var(--linha-forte);
+    justify-self: start;
+  }
+
+  .dado a:hover {
+    border-color: var(--acento);
+  }
+
+  .dado__linha {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .agenda__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

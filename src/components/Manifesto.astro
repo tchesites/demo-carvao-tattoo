@@ -1,0 +1,71 @@
+---
+---
+
+<section class="manifesto">
+  <div class="container manifesto__grid">
+    <blockquote class="reveal">
+      <p>
+        Tatuagem boa não é a que chama atenção de longe. É a que
+        <em>aguenta o tempo</em> de perto.
+      </p>
+    </blockquote>
+
+    <div class="manifesto__nota reveal">
+      <p>
+        Trabalho com agenda curta e um desenho por vez. Sem catálogo pronto e
+        sem cópia de referência: a peça nasce do que você traz — uma foto, uma
+        ideia solta, uma cicatriz que pede outro significado.
+      </p>
+      <p class="manifesto__assinatura">— Carvão</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .manifesto {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    background: var(--carvao);
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .manifesto__grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: end;
+  }
+
+  blockquote p {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 4.2vw, 3.4rem);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    max-width: 24ch;
+  }
+
+  blockquote em {
+    color: var(--osso-suave);
+  }
+
+  .manifesto__nota p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--osso-suave);
+    max-width: 40ch;
+  }
+
+  .manifesto__assinatura {
+    margin-top: 1.2rem;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--osso);
+  }
+
+  @media (max-width: 900px) {
+    .manifesto__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

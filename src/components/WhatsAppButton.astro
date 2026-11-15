@@ -1,0 +1,92 @@
+---
+import { whatsappLink } from '../data/negocio.js';
+
+interface Props {
+  label?: string;
+  mensagem?: string;
+  variant?: 'solid' | 'ghost' | 'dark';
+  class?: string;
+}
+
+const {
+  label = 'Agendar avaliação',
+  mensagem,
+  variant = 'solid',
+  class: extra = '',
+} = Astro.props;
+---
+
+<a
+  class={`btn btn--${variant} ${extra}`}
+  href={whatsappLink(mensagem)}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <span>{label}</span>
+  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+    <path
+      d="M4 12L12 4M12 4H5.5M12 4v6.5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.2"
+    />
+  </svg>
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.95rem 1.4rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition:
+      background var(--transition),
+      color var(--transition),
+      border-color var(--transition);
+  }
+
+  .btn svg {
+    transition: transform var(--transition);
+  }
+
+  .btn:hover svg {
+    transform: translate(2px, -2px);
+  }
+
+  .btn--solid {
+    background: var(--osso);
+    color: var(--tinta);
+    border: 1px solid var(--osso);
+  }
+
+  .btn--solid:hover {
+    background: transparent;
+    color: var(--osso);
+  }
+
+  .btn--ghost {
+    border: 1px solid var(--linha-forte);
+    color: var(--osso);
+  }
+
+  .btn--ghost:hover {
+    border-color: var(--osso);
+    background: var(--osso);
+    color: var(--tinta);
+  }
+
+  .btn--dark {
+    background: var(--tinta);
+    color: var(--osso);
+    border: 1px solid var(--tinta);
+  }
+
+  .btn--dark:hover {
+    background: transparent;
+    color: var(--tinta);
+  }
+</style>

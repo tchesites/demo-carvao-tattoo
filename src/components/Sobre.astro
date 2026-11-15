@@ -1,0 +1,145 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import { negocio } from '../data/negocio.js';
+import { url } from '../utils/url.js';
+---
+
+<section class="sobre" id="sobre">
+  <div class="container sobre__grid">
+    <figure class="sobre__foto reveal">
+      <img
+        src={url('/fotos/artista.jpg')}
+        alt="Carvão, tatuador, sentado no estúdio"
+        width="800"
+        height="1200"
+        loading="lazy"
+      />
+      <figcaption>Barbacena/MG</figcaption>
+    </figure>
+
+    <div class="sobre__texto">
+      <p class="eyebrow">Quem tatua</p>
+      <h2>
+        Sou o Carvão. Nove anos de agulha, cinco só em preto e cinza.
+      </h2>
+
+      <div class="sobre__corpo">
+        <p>
+          Aprendi a desenhar muito antes de aprender a tatuar, e isso aparece
+          no traço: sombra construída, linha que respeita o músculo, contraste
+          que não vira borrão com o tempo.
+        </p>
+        <p>
+          Atendo sozinho, com hora marcada. Sem equipe, sem fila e sem música
+          alta. O estúdio é pequeno de propósito — cabe uma pessoa por vez, e é
+          assim que eu consigo prestar atenção no que importa.
+        </p>
+        <p>
+          Realismo, fine line e blackwork estão no portfólio. O que define a
+          peça, no fim, é ela fazer sentido no seu corpo.
+        </p>
+      </div>
+
+      <ul class="sobre__numeros">
+        <li><strong>{negocio.anos}</strong><span>anos de estrada</span></li>
+        <li><strong>1.200+</strong><span>sessões</span></li>
+        <li><strong>1</strong><span>pessoa no estúdio</span></li>
+      </ul>
+
+      <div class="sobre__cta">
+        <WhatsAppButton variant="dark" label="Falar comigo" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sobre {
+    padding-block: var(--section-y);
+    background: var(--osso);
+    color: var(--tinta);
+  }
+
+  .sobre__grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .sobre__foto img {
+    width: 100%;
+    height: auto;
+    filter: grayscale(1) contrast(1.06);
+  }
+
+  .sobre__foto figcaption {
+    margin-top: 0.8rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6f675e;
+  }
+
+  .sobre .eyebrow {
+    color: #6f675e;
+  }
+
+  .sobre h2 {
+    font-size: var(--display-2);
+    margin-top: 1.2rem;
+    max-width: 20ch;
+  }
+
+  .sobre__corpo {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.8rem;
+    max-width: 52ch;
+  }
+
+  .sobre__corpo p {
+    font-size: 0.98rem;
+    line-height: 1.75;
+    color: #4a433d;
+  }
+
+  .sobre__numeros {
+    display: flex;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: 2.2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(10, 9, 8, 0.16);
+  }
+
+  .sobre__numeros strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .sobre__numeros span {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6f675e;
+  }
+
+  .sobre__cta {
+    margin-top: 3.2rem;
+  }
+
+  @media (max-width: 900px) {
+    .sobre__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sobre__foto {
+      max-width: 340px;
+    }
+  }
+</style>

@@ -1,0 +1,128 @@
+---
+import { processo } from '../data/negocio.js';
+import { url } from '../utils/url.js';
+---
+
+<section class="processo" id="processo">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Processo</p>
+      <h2>Da ideia à pele cicatrizada.</h2>
+      <p>
+        Quatro etapas, sem pressa e sem surpresa. Você sabe o que vai acontecer
+        em cada uma antes de deitar na cadeira.
+      </p>
+    </div>
+
+    <div class="processo__grid">
+      <ol class="etapas">
+        {processo.map((p) => (
+          <li class="etapa reveal">
+            <span class="etapa__num">{p.numero}</span>
+            <div>
+              <h3>{p.titulo}</h3>
+              <p>{p.texto}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <figure class="processo__foto reveal">
+        <img
+          src={url('/fotos/estudio.jpg')}
+          alt="Detalhe do estúdio: máquina de tatuagem e luvas pretas"
+          width="800"
+          height="1200"
+          loading="lazy"
+        />
+        <figcaption>Estúdio — Centro, Barbacena</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .processo {
+    padding-block: var(--section-y);
+    background: var(--carvao);
+  }
+
+  .processo__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.6fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .etapa {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 1.5rem;
+    padding-block: 1.8rem;
+    border-top: 1px solid var(--linha);
+  }
+
+  .etapa:last-child {
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .etapa__num {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    line-height: 1;
+    color: var(--osso-fraco);
+    transition: color var(--transition);
+  }
+
+  .etapa:hover .etapa__num {
+    color: var(--acento);
+  }
+
+  .etapa h3 {
+    font-size: 1.45rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .etapa p {
+    max-width: 52ch;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--osso-suave);
+  }
+
+  .processo__foto {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+  }
+
+  .processo__foto img {
+    width: 100%;
+    height: auto;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .processo__foto figcaption {
+    margin-top: 0.8rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--osso-fraco);
+  }
+
+  @media (max-width: 900px) {
+    .processo__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .processo__foto {
+      position: static;
+      order: -1;
+      max-width: 320px;
+    }
+
+    .etapa {
+      grid-template-columns: 3rem 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

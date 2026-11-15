@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tchesites.github.io/demo-carvao-tattoo/sitemap.xml

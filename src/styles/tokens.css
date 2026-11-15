@@ -1,0 +1,35 @@
+:root {
+  /* Cores — CARVÃO */
+  --tinta: #0a0908;
+  --carvao: #121110;
+  --grafite: #1c1a18;
+  --osso: #ede7dd;
+  --osso-suave: #b9b1a4;
+  --osso-fraco: #8c857a;
+  --acento: #8e2f2a;
+
+  --linha: rgba(237, 231, 221, 0.14);
+  --linha-forte: rgba(237, 231, 221, 0.3);
+
+  /* Tipografia */
+  --font-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --text-xs: 0.72rem;
+  --text-sm: 0.84rem;
+  --text-base: 1rem;
+  --text-lg: 1.18rem;
+  --text-xl: 1.45rem;
+  --display-1: clamp(3.4rem, 9vw, 7.6rem);
+  --display-2: clamp(2.3rem, 5.4vw, 4.4rem);
+  --display-3: clamp(1.7rem, 3.2vw, 2.4rem);
+
+  /* Layout */
+  --container: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-y: clamp(4.5rem, 9vw, 8.5rem);
+  --header-h: 76px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --transition: 200ms var(--ease);
+}

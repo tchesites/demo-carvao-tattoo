@@ -1,0 +1,36 @@
+---
+interface Props {
+  id?: string;
+  tone?: 'tinta' | 'carvao' | 'grafite' | 'osso';
+  class?: string;
+}
+
+const { id, tone = 'tinta', class: extra = '' } = Astro.props;
+---
+
+<section id={id} class={`section ${extra}`} data-tone={tone}>
+  <div class="container">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    position: relative;
+    padding-block: var(--section-y);
+    background: var(--tinta);
+  }
+
+  .section[data-tone='carvao'] {
+    background: var(--carvao);
+  }
+
+  .section[data-tone='grafite'] {
+    background: var(--grafite);
+  }
+
+  .section[data-tone='osso'] {
+    background: var(--osso);
+    color: var(--tinta);
+  }
+</style>

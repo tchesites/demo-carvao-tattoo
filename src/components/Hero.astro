@@ -1,0 +1,198 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import { negocio } from '../data/negocio.js';
+import { url } from '../utils/url.js';
+---
+
+<section class="hero" id="topo">
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow">Barbacena · {negocio.estado} — desde {negocio.desde}</p>
+
+      <h1 class="hero__title">
+        A pele é o<br />
+        <em>último</em> papel.
+      </h1>
+
+      <p class="hero__lead">
+        Realismo em preto e cinza e fine line, desenhados um a um. Atendimento
+        direto comigo, do primeiro esboço à cicatrização.
+      </p>
+
+      <div class="hero__actions">
+        <WhatsAppButton label="Agendar avaliação" />
+        <a class="hero__link" href="#trabalhos">Ver trabalhos <span aria-hidden="true">↓</span></a>
+      </div>
+
+      <ul class="hero__proof">
+        <li>
+          <strong>{negocio.anos}</strong>
+          <span>anos de estrada</span>
+        </li>
+        <li>
+          <strong>1.200+</strong>
+          <span>sessões</span>
+        </li>
+        <li>
+          <strong>{String(negocio.notaGoogle).replace('.', ',')}</strong>
+          <span>no Google</span>
+        </li>
+      </ul>
+    </div>
+
+    <figure class="hero__media">
+      <img
+        src={url('/fotos/hero.jpg')}
+        alt="Costas tatuadas em preto e cinza, vista de lado"
+        width="933"
+        height="1400"
+        fetchpriority="high"
+      />
+      <figcaption>
+        <span>{negocio.assinatura}</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: calc(var(--header-h) + clamp(2rem, 6vw, 4rem));
+    padding-bottom: clamp(3rem, 7vw, 6rem);
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .hero__grid {
+    width: min(100% - (var(--gutter) * 2), var(--container));
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.8fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: end;
+  }
+
+  .hero__copy {
+    padding-bottom: clamp(0rem, 4vw, 3rem);
+  }
+
+  .hero__title {
+    margin-top: 1.6rem;
+    font-size: var(--display-1);
+    letter-spacing: -0.03em;
+  }
+
+  .hero__title em {
+    color: var(--osso-suave);
+  }
+
+  .hero__lead {
+    margin-top: 1.8rem;
+    max-width: 38ch;
+    font-size: var(--text-lg);
+    color: var(--osso-suave);
+    line-height: 1.6;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2.4rem;
+  }
+
+  .hero__link {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--osso-suave);
+    border-bottom: 1px solid var(--linha-forte);
+    padding-bottom: 0.35rem;
+    transition:
+      color var(--transition),
+      border-color var(--transition);
+  }
+
+  .hero__link:hover {
+    color: var(--osso);
+    border-color: var(--acento);
+  }
+
+  .hero__proof {
+    display: flex;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--linha);
+  }
+
+  .hero__proof strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .hero__proof span {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.67rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--osso-fraco);
+  }
+
+  .hero__media {
+    position: relative;
+  }
+
+  .hero__media img {
+    width: 100%;
+    height: clamp(380px, 62vh, 640px);
+    object-fit: cover;
+    object-position: 50% 30%;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .hero__media::before {
+    content: '';
+    position: absolute;
+    inset: 12px -12px -12px 12px;
+    border: 1px solid var(--linha);
+    pointer-events: none;
+  }
+
+  .hero__media figcaption {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 0.9rem 1.1rem;
+    background: rgba(10, 9, 8, 0.82);
+    backdrop-filter: blur(6px);
+    font-size: 0.63rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--osso-suave);
+  }
+
+  @media (max-width: 900px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .hero__media {
+      order: -1;
+      margin-right: 12px;
+    }
+
+    .hero__media img {
+      height: clamp(300px, 48vh, 440px);
+    }
+
+    .hero__title {
+      font-size: clamp(3rem, 13vw, 5rem);
+    }
+  }
+</style>

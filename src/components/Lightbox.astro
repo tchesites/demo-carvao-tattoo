@@ -1,0 +1,211 @@
+---
+---
+
+<dialog class="lightbox" data-lightbox aria-label="Trabalho em tela cheia">
+  <div class="lightbox__bar">
+    <span class="lightbox__conta" data-conta></span>
+    <button class="lightbox__fechar" type="button" data-fechar aria-label="Fechar">
+      Fechar <span aria-hidden="true">✕</span>
+    </button>
+  </div>
+
+  <button class="lightbox__nav lightbox__nav--prev" type="button" data-prev aria-label="Trabalho anterior">
+    <span aria-hidden="true">←</span>
+  </button>
+
+  <figure class="lightbox__figura">
+    <img data-img src="" alt="" />
+    <figcaption>
+      <strong data-titulo></strong>
+      <span data-legenda></span>
+    </figcaption>
+  </figure>
+
+  <button class="lightbox__nav lightbox__nav--next" type="button" data-next aria-label="Próximo trabalho">
+    <span aria-hidden="true">→</span>
+  </button>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+  const dentro = <T extends Element>(sel: string) => dialog?.querySelector<T>(sel) ?? null;
+  const img = dentro<HTMLImageElement>('[data-img]');
+  const titulo = dentro<HTMLElement>('[data-titulo]');
+  const legenda = dentro<HTMLElement>('[data-legenda]');
+  const conta = dentro<HTMLElement>('[data-conta]');
+
+  let visiveis: HTMLElement[] = [];
+  let atual = 0;
+  let origem: HTMLElement | null = null;
+
+  const pintar = () => {
+    const peca = visiveis[atual];
+    if (!peca || !img) return;
+    img.src = peca.dataset.src ?? '';
+    img.alt = peca.querySelector('img')?.alt ?? '';
+    if (titulo) titulo.textContent = peca.dataset.titulo ?? '';
+    if (legenda) legenda.textContent = `${peca.dataset.estilo} · ${peca.dataset.local}`;
+    if (conta) conta.textContent = `${atual + 1} / ${visiveis.length}`;
+  };
+
+  const navegar = (passo: number) => {
+    if (!visiveis.length) return;
+    atual = (atual + passo + visiveis.length) % visiveis.length;
+    pintar();
+  };
+
+  document.addEventListener('carvao:abrir', (e) => {
+    const id = (e as CustomEvent<{ id: string }>).detail.id;
+    visiveis = [...document.querySelectorAll<HTMLElement>('.trabalho')].filter((el) => !el.hidden);
+    atual = visiveis.findIndex((el) => el.dataset.id === id);
+    if (atual < 0) atual = 0;
+    origem = visiveis[atual] ?? null;
+    pintar();
+    document.documentElement.style.overflow = 'hidden';
+    dialog?.showModal();
+  });
+
+  const fechar = () => dialog?.close();
+  document.querySelector('[data-fechar]')?.addEventListener('click', fechar);
+  document.querySelector('[data-prev]')?.addEventListener('click', () => navegar(-1));
+  document.querySelector('[data-next]')?.addEventListener('click', () => navegar(1));
+
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) fechar();
+  });
+
+  dialog?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); navegar(-1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); navegar(1); }
+  });
+
+  dialog?.addEventListener('close', () => {
+    document.documentElement.style.overflow = '';
+    origem?.focus();
+  });
+</script>
+
+<style>
+  .lightbox {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(10, 9, 8, 0.97);
+    color: var(--osso);
+  }
+
+  .lightbox::backdrop {
+    background: rgba(10, 9, 8, 0.9);
+  }
+
+  .lightbox[open] {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: clamp(0.5rem, 2vw, 2rem);
+    padding: 4.5rem clamp(0.75rem, 3vw, 2.5rem) 1.5rem;
+  }
+
+  .lightbox__bar {
+    position: absolute;
+    inset: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem clamp(0.75rem, 3vw, 2.5rem);
+    border-bottom: 1px solid var(--linha);
+  }
+
+  .lightbox__conta {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--osso-suave);
+  }
+
+  .lightbox__fechar {
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--osso-suave);
+  }
+
+  .lightbox__fechar:hover {
+    color: var(--osso);
+  }
+
+  .lightbox__nav {
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid var(--linha);
+    color: var(--osso-suave);
+    transition:
+      border-color var(--transition),
+      color var(--transition);
+  }
+
+  .lightbox__nav:hover {
+    border-color: var(--osso);
+    color: var(--osso);
+  }
+
+  .lightbox__figura {
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .lightbox__figura img {
+    max-width: 100%;
+    max-height: calc(100vh - 12rem);
+    object-fit: contain;
+    filter: grayscale(1) contrast(1.04);
+  }
+
+  .lightbox__figura figcaption {
+    display: grid;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .lightbox__figura strong {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 400;
+  }
+
+  .lightbox__figura span {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--osso-fraco);
+  }
+
+  @media (max-width: 700px) {
+    .lightbox[open] {
+      grid-template-columns: 1fr;
+      padding-top: 4.5rem;
+    }
+
+    .lightbox__nav {
+      position: fixed;
+      bottom: 1rem;
+    }
+
+    .lightbox__nav--prev {
+      left: 1rem;
+    }
+
+    .lightbox__nav--next {
+      right: 1rem;
+    }
+
+    .lightbox__figura img {
+      max-height: calc(100vh - 14rem);
+    }
+  }
+</style>
