@@ -90,6 +90,7 @@ cada push em `main` roda `npm ci` + `astro build` e publica o artefato.
 
 - **URL:** <https://tchesites.github.io/demo-carvao-tattoo/>
 - **Base:** `/demo-carvao-tattoo`; links internos via `url()`.
+- **Status:** publicado em 15/11/2026.
 - **Setup:** repo público, topic `demo` e *Settings → Pages → Source =
   GitHub Actions* antes do primeiro push.
 
