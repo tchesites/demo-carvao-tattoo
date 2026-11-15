@@ -1,5 +1,5 @@
 ---
-import { processo } from '../data/negocio.js';
+import { processo, negocio } from '../data/negocio.js';
 import { url } from '../utils/url.js';
 ---
 
@@ -35,7 +35,7 @@ import { url } from '../utils/url.js';
           height="1200"
           loading="lazy"
         />
-        <figcaption>Estúdio — Centro, Barbacena</figcaption>
+        <figcaption>Estúdio — {negocio.bairro}, {negocio.cidade}</figcaption>
       </figure>
     </div>
   </div>

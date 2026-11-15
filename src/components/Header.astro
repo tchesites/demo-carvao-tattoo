@@ -12,8 +12,8 @@ const links = [
 
 <header class="header" data-header>
   <div class="header__inner">
-    <a class="logo" href="#topo" aria-label="Carvão — início">
-      Carvão<span class="logo__dot">.</span>
+    <a class="logo" href="#topo" aria-label={`${negocio.nome} — início`}>
+      {negocio.nome}<span class="logo__dot">.</span>
     </a>
 
     <nav class="nav" aria-label="Navegação principal">
@@ -35,33 +35,42 @@ const links = [
       <span></span><span></span>
     </button>
   </div>
-
-  <div class="menu" id="menu-mobile" data-menu hidden>
-    <nav aria-label="Menu">
-      {links.map((l) => <a href={l.href} data-menu-link>{l.label}</a>)}
-      <a class="menu__cta" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-        Agendar avaliação
-      </a>
-      <p class="menu__info">{negocio.cidade}/{negocio.estado} · {negocio.instagram}</p>
-    </nav>
-  </div>
 </header>
+
+<div class="menu" id="menu-mobile" data-menu hidden>
+  <nav aria-label="Menu">
+    {links.map((l) => <a href={l.href} data-menu-link>{l.label}</a>)}
+    <a class="menu__cta" href={whatsappLink()} target="_blank" rel="noopener noreferrer">
+      Agendar avaliação
+    </a>
+    <p class="menu__info">{negocio.cidade}/{negocio.estado} · {negocio.instagram}</p>
+  </nav>
+</div>
 
 <script>
   const header = document.querySelector<HTMLElement>('[data-header]');
   const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
   const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const main = document.querySelector<HTMLElement>('main');
+  const footer = document.querySelector<HTMLElement>('footer');
 
   const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 24);
   onScroll();
   addEventListener('scroll', onScroll, { passive: true });
 
-  const fechar = () => {
+  const travar = (ligado: boolean) => {
+    if (main) main.inert = ligado;
+    if (footer) footer.inert = ligado;
+    document.body.style.overflow = ligado ? 'hidden' : '';
+  };
+
+  const fechar = (devolverFoco = true) => {
     if (!menu || !burger) return;
     menu.hidden = true;
     burger.setAttribute('aria-expanded', 'false');
     burger.setAttribute('aria-label', 'Abrir menu');
-    document.body.style.overflow = '';
+    travar(false);
+    if (devolverFoco) burger.focus();
   };
 
   burger?.addEventListener('click', () => {
@@ -70,11 +79,15 @@ const links = [
     menu.hidden = !abrir;
     burger.setAttribute('aria-expanded', String(abrir));
     burger.setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
-    document.body.style.overflow = abrir ? 'hidden' : '';
+    travar(abrir);
+    if (abrir) menu.querySelector<HTMLElement>('a')?.focus();
   });
 
-  menu?.querySelectorAll('[data-menu-link], .menu__cta').forEach((a) => a.addEventListener('click', fechar));
-  addEventListener('keydown', (e) => e.key === 'Escape' && fechar());
+  menu?.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', () => fechar(false)));
+  menu?.querySelector('.menu__cta')?.addEventListener('click', () => fechar(false));
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.hidden) fechar();
+  });
 </script>
 
 <style>
@@ -183,6 +196,7 @@ const links = [
   .menu {
     position: fixed;
     inset: var(--header-h) 0 0;
+    z-index: 45;
     background: var(--tinta);
     padding: 3rem var(--gutter);
     overflow-y: auto;
@@ -193,7 +207,7 @@ const links = [
     gap: 0.4rem;
   }
 
-  .menu nav > a {
+  .menu nav > a:not(.menu__cta) {
     font-family: var(--font-display);
     font-size: clamp(2.2rem, 9vw, 3.4rem);
     line-height: 1.25;

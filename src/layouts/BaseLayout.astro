@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = 'Carvão — Tatuador em Barbacena/MG',
-  description = 'Realismo preto e cinza e fine line em Barbacena/MG. Desenho autoral, agenda curta e atendimento direto com o tatuador. Marque sua avaliação.',
+  title = `${negocio.nome} — Tatuador em ${negocio.cidade}/${negocio.estado}`,
+  description = `Realismo preto e cinza e fine line em ${negocio.cidade}/${negocio.estado}. Desenho autoral, agenda curta e atendimento direto com o tatuador. Marque sua avaliação.`,
 } = Astro.props;
 
 const canonicalPath = Astro.url.pathname.endsWith('/')
@@ -26,8 +26,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'TattooParlor',
   name: negocio.nome,
-  description:
-    'Tatuador solo em Barbacena/MG. Realismo preto e cinza, fine line e blackwork com desenho autoral.',
+  description: `Tatuador solo em ${negocio.cidade}/${negocio.estado}. Realismo preto e cinza, fine line e blackwork com desenho autoral.`,
   url: canonical.href,
   image: ogImage.href,
   telephone: `+55 32 90000-0000`,
@@ -50,7 +49,7 @@ const jsonLd = {
   hasMap: negocio.mapsUrl,
   areaServed: {
     '@type': 'City',
-    name: 'Barbacena',
+    name: negocio.cidade,
   },
   openingHoursSpecification: [
     {
@@ -109,7 +108,7 @@ const jsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Carvão — tatuador em Barbacena/MG" />
+    <meta property="og:image:alt" content={`${negocio.nome} — tatuador em ${negocio.cidade}`} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -124,6 +123,15 @@ const jsonLd = {
     />
 
     <title>{title}</title>
+
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      </style>
+    </noscript>
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>

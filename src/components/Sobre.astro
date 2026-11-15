@@ -2,6 +2,8 @@
 import WhatsAppButton from './WhatsAppButton.astro';
 import { negocio } from '../data/negocio.js';
 import { url } from '../utils/url.js';
+
+const sessoes = negocio.sessoes.toLocaleString('pt-BR');
 ---
 
 <section class="sobre" id="sobre">
@@ -14,13 +16,14 @@ import { url } from '../utils/url.js';
         height="1200"
         loading="lazy"
       />
-      <figcaption>Barbacena/MG</figcaption>
+      <figcaption>{negocio.cidade}/{negocio.estado}</figcaption>
     </figure>
 
     <div class="sobre__texto">
       <p class="eyebrow">Quem tatua</p>
       <h2>
-        Sou o Carvão. Nove anos de agulha, cinco só em preto e cinza.
+        Sou o {negocio.nome}. {negocio.anos} anos de agulha, {negocio.anosPretoCinza}
+        só em preto e cinza.
       </h2>
 
       <div class="sobre__corpo">
@@ -42,7 +45,7 @@ import { url } from '../utils/url.js';
 
       <ul class="sobre__numeros">
         <li><strong>{negocio.anos}</strong><span>anos de estrada</span></li>
-        <li><strong>1.200+</strong><span>sessões</span></li>
+        <li><strong>{sessoes}+</strong><span>sessões</span></li>
         <li><strong>1</strong><span>pessoa no estúdio</span></li>
       </ul>
 

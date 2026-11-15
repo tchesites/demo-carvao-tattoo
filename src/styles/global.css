@@ -79,6 +79,10 @@ ol {
   list-style: none;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 ::selection {
   background: var(--acento);
   color: var(--osso);
@@ -98,8 +102,9 @@ ol {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  font-size: 0.68rem;
+  font-family: var(--font-body);
   font-weight: 500;
+  font-size: 0.68rem;
   letter-spacing: 0.26em;
   text-transform: uppercase;
   color: var(--osso-suave);
@@ -205,6 +210,13 @@ ol {
 
 [data-tone='osso'] .rule {
   background: rgba(10, 9, 8, 0.15);
+}
+
+/* Em fundo claro, o anel de foco precisa ser escuro. */
+[data-tone='osso'] :focus-visible,
+.sobre :focus-visible {
+  outline: 2px solid var(--tinta);
+  outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
