@@ -3,7 +3,7 @@
 - **Cliente:** Carvão — *marca fictícia (projeto demonstrativo)*
 - **Entidade:** tche-sites
 - **Stack:** astro
-- **Status:** ativo
+- **Status:** entregue
 - **Repo:** [`tchesites/demo-carvao-tattoo`](https://github.com/tchesites/demo-carvao-tattoo) — `git@github.com-tchesites:tchesites/demo-carvao-tattoo.git`
 - **Como rodar:** `npm install` e `npm run dev` (`http://localhost:4321/demo-carvao-tattoo/`)
 - **Check do build:** `npm run build && npm run check`
